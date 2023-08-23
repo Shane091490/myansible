@@ -12,6 +12,10 @@
     apt:
       name: python3
 
+  - name: install python3-pip package
+    apt:
+      name: python3-pip
+
   - name: install ca-certificates package dependency for docker
     apt:
       name: ca-certificates
@@ -23,3 +27,15 @@
   - name: install gnupg package dependency for docker
     apt:
       name: gnupg
+
+  - name: install zip package
+    apt:
+      name: zip
+
+  - name: install unzip package
+    apt:
+      name: unzip
+
+  - name: install snap package
+    apt:
+      name: snap
