@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install all packages
+    apt:
+      name: snap
+      state: latest
+      update_cache: yes
+
+# Install "foo" and "bar" snap
+  - name: Install Shoutrrr
+    snap:
+      name: shoutrrr

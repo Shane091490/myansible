@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install all packages
+    apt:
+      name:
+        - python3
+        - python3-pip
+        - zip
+        - unzip
+        - snap
+      state: latest
+      update_cache: yes
+
+  - name: Install Bottle and Glances pip package
+    pip:
+      name:
+        - bottle
+        - glances
+
+- name: Install shoutrrr
+  community.general.snap:
+    name: shoutrrr
