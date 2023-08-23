@@ -44,3 +44,18 @@
         name:
           - bottle
           - glances
+
+    - name: Create docker group
+      command: groupadd docker
+
+    - name: Add user to docker group
+      command: usermod -aG docker $USER
+
+    - name: Run command to activate changes
+      command: newgrp docker
+
+    - name: Run command to start docker on boot with systemd
+      command: systemctl enable docker.service
+
+    - name: Run command to start docker on boot with systemd
+      command: systemctl enable containerd.service
