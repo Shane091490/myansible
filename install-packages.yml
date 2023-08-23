@@ -2,40 +2,45 @@
 
 - hosts: all
   become: true
-  tasks: 
+  tasks:
 
-  - name: update repository index
+  - name: install all packages
     apt:
-      update_cache: yes
+      name:
+        - python3
+        - python3-pip
+        - ca-certificates
+        - curl
+        - gnupg
+        - zip
+        - unzip
+        - snap
+    state: latest
+    update_cache: yes
 
-  - name: install python3 package
-    apt:
-      name: python3
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-  - name: install python3-pip package
-    apt:
-      name: python3-pip
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
 
-  - name: install ca-certificates package dependency for docker
-    apt:
-      name: ca-certificates
+    - name: Update apt and install docker-ce
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
 
-  - name: install curl package dependency for docker
-    apt:
-      name: curl
-
-  - name: install gnupg package dependency for docker
-    apt:
-      name: gnupg
-
-  - name: install zip package
-    apt:
-      name: zip
-
-  - name: install unzip package
-    apt:
-      name: unzip
-
-  - name: install snap package
-    apt:
-      name: snap
+    - name: Install Bottle and Glances pip package
+      pip:
+        name:
+          - bottle
+          - glances
